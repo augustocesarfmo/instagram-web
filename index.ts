@@ -1,50 +1,33 @@
 class Post {
-  private _userName: string;
-  private _imageUrl: string;
-  private _description: string;
-  private _numLikes: number;
+  private _userName: string; // Atributo privado do tipo string
+  private _titulo: string;
+  private _dataPostagem: Date;
+  private _numeroCurtidas: number;
 
-  constructor(userName: string, imageUrl: string, description: string) {
+  constructor(userName: string, titulo: string) {
     this._userName = userName;
-    this._imageUrl = imageUrl;
-    this._description = description;
-    this._numLikes = 0;
+    this._titulo = titulo;
+    this._dataPostagem = new Date();
+    this._numeroCurtidas = 0;
   }
 
   get userName() {
-    return this._userName;
+    return this._userName.toLocaleUpperCase();
   }
 
-  get imageUrl() {
-    return this._imageUrl;
+  set userName(userName: string) {
+    this._userName = userName;
   }
 
-  get description() {
-    return this._description;
-  }
-
-  set description(description: string) {
-    this._description = description;
-  }
-
-  get numLikes() {
-    return this._numLikes;
-  }
-
-  incrementLike() {
-    this._numLikes += 1;
+  incrementarCurtidas() {
+    this._numeroCurtidas += 1;
   }
 }
 
-const post1 = new Post("augustocesar", "http://...", "Imagem 1");
-console.log(post1);
-const post2 = new Post("maria", "http://...", "Imagem 2");
-post1.description = "Outra descrição";
-console.log(post1);
+const post1 = new Post("augustocesar", "Foto 1");
 
-// console.log(post1.userName);
-// console.log(post2.userName);
+console.log(post1.userName);
+post1.userName = "Maria";
+console.log(post1.userName);
 
-post1.incrementLike();
-post1.incrementLike();
-// console.log(post1);
+post1.incrementarCurtidas();

@@ -1,38 +1,33 @@
 * {
   padding: 0px;
   margin: 0px;
-  box-sizing: border-box;
 }
 
-.post-container {
+.caixa {
+  border: 1px solid black;
   width: 400px;
   height: 500px;
-  border: 1px solid black;
   margin: 20px;
-  padding: 30px;
+  padding: 20px;
+
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
-.post-header {
+.cabecalho {
   display: flex;
-  justify-content: space-between;
-}
-
-.post-header .left {
-  display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 10px;
 }
 
-.post-header .left>div {
+.img-usuario {
   width: 40px;
   height: 40px;
   border: 1px solid black;
   border-radius: 50%;
 }
 
-.post-icons {
-  font-size: 24px;
+.bi {
+  font-size: 20px;
 }
