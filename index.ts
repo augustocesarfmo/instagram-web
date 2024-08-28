@@ -1,4 +1,8 @@
+import { randomUUID } from "node:crypto";
+import { faker } from "@faker-js/faker";
+
 class Post {
+  private _id: string;
   private _userName: string;
   private _imageUrl: string;
   private _description: string;
@@ -9,6 +13,11 @@ class Post {
     this._imageUrl = imageUrl;
     this._description = description;
     this._numLikes = 0;
+    this._id = randomUUID();
+  }
+
+  get id() {
+    return this._id;
   }
 
   get userName() {
@@ -36,15 +45,11 @@ class Post {
   }
 }
 
-const post1 = new Post("augustocesar", "http://...", "Imagem 1");
-console.log(post1);
-const post2 = new Post("maria", "http://...", "Imagem 2");
-post1.description = "Outra descrição";
-console.log(post1);
+const posts: Post[] = [];
 
-// console.log(post1.userName);
-// console.log(post2.userName);
+for (let index = 0; index < 15; index++) {
+  const post = new Post(faker.person.firstName(), "http://...", "Imagem 1");
+  posts.push(post);
+}
 
-post1.incrementLike();
-post1.incrementLike();
-// console.log(post1);
+console.log(posts);
