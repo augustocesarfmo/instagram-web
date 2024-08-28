@@ -1,14 +1,23 @@
+import { randomUUID } from "node:crypto";
+import { faker } from "@faker-js/faker";
+
 class Post {
+  private _id: string;
   private _userName: string; // Atributo privado do tipo string
-  private _titulo: string;
+  private _description: string;
   private _dataPostagem: Date;
   private _numeroCurtidas: number;
 
   constructor(userName: string, titulo: string) {
-    this._userName = userName;
-    this._titulo = titulo;
+    this._userName = userName.toLowerCase();
+    this._description = titulo;
     this._dataPostagem = new Date();
     this._numeroCurtidas = 0;
+    this._id = randomUUID();
+  }
+
+  get id() {
+    return this._id;
   }
 
   get userName() {
@@ -24,10 +33,11 @@ class Post {
   }
 }
 
-const post1 = new Post("augustocesar", "Foto 1");
+for (let index = 0; index < 15; index++) {
+  const userName = faker.person.firstName();
+  const description = faker.lorem.word();
 
-console.log(post1.userName);
-post1.userName = "Maria";
-console.log(post1.userName);
+  const post = new Post(userName, description);
 
-post1.incrementarCurtidas();
+  console.log(post);
+}
