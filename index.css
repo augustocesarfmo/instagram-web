@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: "Roboto", sans-serif;
+}
+
 .post-container {
   width: 400px;
   height: 500px;
@@ -31,8 +35,39 @@
   height: 40px;
   border: 1px solid black;
   border-radius: 50%;
+  overflow: hidden;
+}
+
+.post-header .left>div>img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+
+.post-image {
+  background-color: black;
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.post-image>img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .post-icons {
   font-size: 24px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  cursor: pointer;
+}
+
+.liked {
+  color: red
 }
