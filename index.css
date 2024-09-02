@@ -58,3 +58,7 @@ body {
 .post-likes {
   font-size: 14px;
 }
+
+.liked {
+  color: red
+}
