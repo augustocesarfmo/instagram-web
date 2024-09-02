@@ -3,41 +3,56 @@ import { faker } from "@faker-js/faker";
 
 class Post {
   private _id: string;
-  private _userName: string; // Atributo privado do tipo string
+  private _userName: string;
+  private _avatarUrl: string;
+  private _imageUrl: string;
+  private _isLiked: boolean;
   private _description: string;
-  private _dataPostagem: Date;
-  private _numeroCurtidas: number;
+  private _createdAt: Date;
+  private _numberOfLikes: number;
 
-  constructor(userName: string, titulo: string) {
-    this._userName = userName.toLowerCase();
-    this._description = titulo;
-    this._dataPostagem = new Date();
-    this._numeroCurtidas = 0;
+  constructor(
+    userName: string,
+    avatarUrl: string,
+    imageUrl: string,
+    description: string
+  ) {
     this._id = randomUUID();
+    this._userName = userName.toLowerCase();
+    this._avatarUrl = avatarUrl;
+    this._imageUrl = imageUrl;
+    this._isLiked = false;
+    this._description = description;
+    this._createdAt = new Date();
+    this._numberOfLikes = 0;
   }
 
-  get id() {
-    return this._id;
-  }
+  like() {
+    this._isLiked = !this._isLiked;
 
-  get userName() {
-    return this._userName.toLocaleUpperCase();
-  }
-
-  set userName(userName: string) {
-    this._userName = userName;
-  }
-
-  incrementarCurtidas() {
-    this._numeroCurtidas += 1;
+    // Incrementa o número de likes
+    if (this._isLiked) {
+      this._numberOfLikes += 1;
+    } else {
+      // Descrementa o número de likes
+      this._numberOfLikes -= 1;
+    }
   }
 }
+
+const posts: Post[] = [];
 
 for (let index = 0; index < 15; index++) {
   const userName = faker.person.firstName();
-  const description = faker.lorem.word();
+  const avatarUrl = faker.image.avatarGitHub();
+  const imageUrl = faker.image.urlLoremFlickr();
+  const description = faker.lorem.paragraph();
 
-  const post = new Post(userName, description);
+  const post = new Post(userName, avatarUrl, imageUrl, description);
 
-  console.log(post);
+  posts.push(post);
 }
+
+posts[0].like();
+posts[0].like();
+console.log(posts[0]);
