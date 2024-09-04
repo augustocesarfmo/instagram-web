@@ -1,15 +1,15 @@
-import { randomUUID } from "node:crypto";
+import { v4 as randomUUID } from "uuid";
 import { faker } from "@faker-js/faker";
 
 class Post {
-  private _id: string;
+  private _id: string = randomUUID();
   private _userName: string;
   private _avatarUrl: string;
   private _imageUrl: string;
-  private _isLiked: boolean;
+  private _isLiked: boolean = false;
   private _description: string;
-  private _createdAt: Date;
-  private _numberOfLikes: number;
+  private _createdAt: Date = new Date();
+  private _numberOfLikes: number = 0;
 
   constructor(
     userName: string,
@@ -17,14 +17,10 @@ class Post {
     imageUrl: string,
     description: string
   ) {
-    this._id = randomUUID();
     this._userName = userName.toLowerCase();
     this._avatarUrl = avatarUrl;
     this._imageUrl = imageUrl;
-    this._isLiked = false;
     this._description = description;
-    this._createdAt = new Date();
-    this._numberOfLikes = 0;
   }
 
   like() {
@@ -38,6 +34,19 @@ class Post {
       this._numberOfLikes -= 1;
     }
   }
+
+  toHTML() {
+    const div = document.createElement("div");
+    div.innerHTML = `
+    <div class="post-container">
+      <div class="post-header">
+        <div></div>
+        <span>${this._userName}</span>
+      </div>
+    </div>`;
+
+    document.body.appendChild(div);
+  }
 }
 
 const posts: Post[] = [];
@@ -50,9 +59,5 @@ for (let index = 0; index < 15; index++) {
 
   const post = new Post(userName, avatarUrl, imageUrl, description);
 
-  posts.push(post);
+  post.toHTML();
 }
-
-posts[0].like();
-posts[0].like();
-console.log(posts[0]);
