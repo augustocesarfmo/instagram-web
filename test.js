@@ -1,8 +1,9 @@
-var isLiked = false;
+"use strict";
+let isLiked = false;
 function like() {
     isLiked = !isLiked;
-    var btnLike = document.getElementsByClassName("btn-like")[0];
-    var icon = btnLike.children[0];
+    const btnLike = document.getElementsByClassName("btn-like")[0];
+    const icon = btnLike.children[0];
     if (isLiked) {
         icon.classList.remove("fa-heart-o");
         icon.classList.add("liked");

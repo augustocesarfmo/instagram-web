@@ -1,55 +1,51 @@
-import { randomUUID } from "node:crypto";
+import { v4 as randomUUID } from "uuid";
 import { faker } from "@faker-js/faker";
 
 class Post {
-  private _id: string;
+  private _id: string = randomUUID();
   private _userName: string;
+  private _avatarUrl: string;
   private _imageUrl: string;
   private _description: string;
-  private _numLikes: number;
+  private _isLiked: boolean = false;
+  private _numberOfLikes: number = 0;
+  private _createdAt: Date = new Date();
 
-  constructor(userName: string, imageUrl: string, description: string) {
+  constructor(
+    userName: string,
+    avatarUrl: string,
+    imageUrl: string,
+    description: string
+  ) {
     this._userName = userName;
+    this._avatarUrl = avatarUrl;
     this._imageUrl = imageUrl;
     this._description = description;
-    this._numLikes = 0;
-    this._id = randomUUID();
   }
 
-  get id() {
-    return this._id;
-  }
+  like() {
+    this._isLiked = !this._isLiked;
 
-  get userName() {
-    return this._userName;
-  }
-
-  get imageUrl() {
-    return this._imageUrl;
-  }
-
-  get description() {
-    return this._description;
-  }
-
-  set description(description: string) {
-    this._description = description;
-  }
-
-  get numLikes() {
-    return this._numLikes;
-  }
-
-  incrementLike() {
-    this._numLikes += 1;
+    if (this._isLiked === true) {
+      this._numberOfLikes += 1;
+    } else {
+      this._numberOfLikes -= 1;
+    }
   }
 }
 
 const posts: Post[] = [];
 
 for (let index = 0; index < 15; index++) {
-  const post = new Post(faker.person.firstName(), "http://...", "Imagem 1");
+  const post = new Post(
+    faker.person.firstName(),
+    faker.image.avatarGitHub(),
+    faker.image.urlPicsumPhotos(),
+    faker.lorem.paragraph()
+  );
+
   posts.push(post);
 }
 
 console.log(posts);
+console.log("testando");
