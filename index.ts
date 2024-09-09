@@ -33,19 +33,66 @@ class Post {
       // Descrementa o número de likes
       this._numberOfLikes -= 1;
     }
+
+    const postContainer = document.getElementById(this._id);
+    const btnLike = postContainer?.querySelector("#btn-like");
+
+    if (!btnLike) return;
+
+    btnLike.innerHTML = String(this._isLiked);
+    // console.log(btnLike);
   }
 
   toHTML() {
-    const div = document.createElement("div");
-    div.innerHTML = `
-    <div class="post-container">
+    const postContainer = document.createElement("div");
+    postContainer.className = "post-container";
+    postContainer.id = this._id;
+
+    const postHeader = `
       <div class="post-header">
-        <div></div>
+        <div>
+          <img title="Avatar image"
+            src=${this._avatarUrl}>
+        </div>
         <span>${this._userName}</span>
       </div>
-    </div>`;
+    `;
 
-    document.body.appendChild(div);
+    const postImage = `
+     <div class="post-image">
+        <img title="Post image"
+          src=${this._imageUrl}>
+      </div>
+    `;
+
+    const postIcons = `
+      <div class="post-icons">
+        <div>
+          <div id="btn-like">
+            <i class="fa fa-heart-o"></i>
+          </div>
+
+          <div>
+            <i class="fa fa-comment-o"></i>
+          </div>
+
+          <div>
+            <i class="fa fa-paper-plane-o"></i>
+          </div>
+        </div>
+
+        <i class="fa fa-bookmark-o"></i>
+      </div>
+    `;
+
+    postContainer.innerHTML = postHeader;
+    postContainer.innerHTML += postImage;
+    postContainer.innerHTML += postIcons;
+
+    const btnLike = postContainer.querySelector("#btn-like");
+    btnLike?.addEventListener("click", () => this.like());
+
+    document.body.appendChild(postContainer);
   }
 }
 
