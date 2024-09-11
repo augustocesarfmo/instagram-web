@@ -30,7 +30,7 @@ class Post {
 
     if (!icon) return;
 
-    // Remove o coração preenchido, adiciona o coração vazio e
+    // Remove o coração preenchido e adiciona o coração vazio
     if (this._isLiked) {
       icon.classList.remove("fa-heart");
       icon.classList.remove("liked");
