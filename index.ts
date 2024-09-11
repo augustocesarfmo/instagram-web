@@ -6,10 +6,10 @@ class Post {
   private _userName: string;
   private _avatarUrl: string;
   private _imageUrl: string;
-  private _description: string;
   private _isLiked: boolean = false;
-  private _numberOfLikes: number = 0;
+  private _description: string;
   private _createdAt: Date = new Date();
+  private _numberOfLikes: number = 0;
 
   constructor(
     userName: string,
@@ -17,27 +17,38 @@ class Post {
     imageUrl: string,
     description: string
   ) {
-    this._userName = userName;
+    this._userName = userName.toLowerCase();
     this._avatarUrl = avatarUrl;
     this._imageUrl = imageUrl;
     this._description = description;
   }
 
   like() {
-    const post = document.getElementById(this._id);
-    const btnLike = post?.querySelector(".btn-like");
+    const postContainer = document.getElementById(this._id);
+    const btnLike = postContainer?.querySelector("#btn-like");
+    const icon = btnLike?.children[0];
 
-    if (!btnLike) return;
+    if (!icon) return;
+
+    // Remove o coração preenchido e adiciona o coração vazio
+    if (this._isLiked) {
+      icon.classList.remove("fa-heart");
+      icon.classList.remove("liked");
+      icon.classList.add("fa-heart-o");
+
+      // Incrementa o número de likes
+      this._numberOfLikes += 1;
+    } else {
+      // Remove o coração vazio e adiciona o coração preenchido
+      icon.classList.remove("fa-heart-o");
+      icon.classList.add("fa-heart");
+      icon.classList.add("liked");
+
+      // Descrementa o número de likes
+      this._numberOfLikes -= 1;
+    }
 
     this._isLiked = !this._isLiked;
-
-    if (this._isLiked === true) {
-      this._numberOfLikes += 1;
-      // Renderizar o ícone de coração preenchido
-    } else {
-      this._numberOfLikes -= 1;
-      // Renderizar o ícone de coração não preenchido
-    }
   }
 
   toHTML() {
@@ -47,37 +58,38 @@ class Post {
 
     const postHeader = `
       <div class="post-header">
-        <div class="left">
-          <div>
-            <img title="Avatar image" src=${this._avatarUrl}>
-          </div>
-
-          <span>${this._userName}</span>
+        <div>
+          <img title="Avatar image"
+            src=${this._avatarUrl}>
         </div>
-
-        <div class="right">
-          follow ...
-        </div>
-      </div>`;
+        <span>${this._userName}</span>
+      </div>
+    `;
 
     const postImage = `
-      <div class="post-image">
-        <img title="Post image" src=${this._imageUrl}>
+     <div class="post-image">
+        <img title="Post image"
+          src=${this._imageUrl}>
       </div>
     `;
 
     const postIcons = `
       <div class="post-icons">
-        <div class="btn btn-like">
-          <i class="fa fa-heart-o"></i>
-          <!-- <i class="fa fa-heart liked"></i> -->
+        <div>
+          <div id="btn-like">
+            <i class="fa fa-heart-o"></i>
+          </div>
+
+          <div>
+            <i class="fa fa-comment-o"></i>
+          </div>
+
+          <div>
+            <i class="fa fa-paper-plane-o"></i>
+          </div>
         </div>
-        <div class="btn">
-          <i class="fa fa-comment-o"></i>
-        </div>
-        <div class="btn">
-          <i class="fa fa-paper-plane-o"></i>
-        </div>
+
+        <i class="fa fa-bookmark-o"></i>
       </div>
     `;
 
@@ -85,24 +97,20 @@ class Post {
     postContainer.innerHTML += postImage;
     postContainer.innerHTML += postIcons;
 
-    postContainer
-      .querySelector(".btn-like")
-      ?.addEventListener("click", () => this.like());
+    const btnLike = postContainer.querySelector("#btn-like");
+    btnLike?.addEventListener("click", () => this.like());
 
     document.body.appendChild(postContainer);
   }
 }
 
-const posts: Post[] = [];
-
 for (let index = 0; index < 15; index++) {
-  const post = new Post(
-    faker.person.firstName(),
-    faker.image.avatarGitHub(),
-    faker.image.urlPicsumPhotos(),
-    faker.lorem.paragraph()
-  );
+  const userName = faker.person.firstName();
+  const avatarUrl = faker.image.avatarGitHub();
+  const imageUrl = faker.image.urlLoremFlickr();
+  const description = faker.lorem.paragraph();
+
+  const post = new Post(userName, avatarUrl, imageUrl, description);
 
   post.toHTML();
-  // posts.push(post);
 }
