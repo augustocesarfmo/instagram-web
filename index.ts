@@ -24,23 +24,31 @@ class Post {
   }
 
   like() {
-    this._isLiked = !this._isLiked;
+    const postContainer = document.getElementById(this._id);
+    const btnLike = postContainer?.querySelector("#btn-like");
+    const icon = btnLike?.children[0];
 
-    // Incrementa o número de likes
+    if (!icon) return;
+
+    // Remove o coração preenchido, adiciona o coração vazio e
     if (this._isLiked) {
+      icon.classList.remove("fa-heart");
+      icon.classList.remove("liked");
+      icon.classList.add("fa-heart-o");
+
+      // Incrementa o número de likes
       this._numberOfLikes += 1;
     } else {
+      // Remove o coração vazio e adiciona o coração preenchido
+      icon.classList.remove("fa-heart-o");
+      icon.classList.add("fa-heart");
+      icon.classList.add("liked");
+
       // Descrementa o número de likes
       this._numberOfLikes -= 1;
     }
 
-    const postContainer = document.getElementById(this._id);
-    const btnLike = postContainer?.querySelector("#btn-like");
-
-    if (!btnLike) return;
-
-    btnLike.innerHTML = String(this._isLiked);
-    // console.log(btnLike);
+    this._isLiked = !this._isLiked;
   }
 
   toHTML() {
@@ -95,8 +103,6 @@ class Post {
     document.body.appendChild(postContainer);
   }
 }
-
-const posts: Post[] = [];
 
 for (let index = 0; index < 15; index++) {
   const userName = faker.person.firstName();
