@@ -24,23 +24,40 @@ class Post {
   }
 
   like() {
-    this._isLiked = !this._isLiked;
+    const postContainer = document.getElementById(this._id);
 
-    // Incrementa o número de likes
+    if (!postContainer) return;
+
+    this.updateLikeIcon(postContainer);
+    this.updateTextNumberOfLikes(postContainer);
+
+    this._isLiked = !this._isLiked;
+  }
+
+  private updateLikeIcon(postHTML: HTMLElement) {
+    const btnLike = postHTML.querySelector("#btn-like");
+    const icon = btnLike?.children[0];
+
+    if (!icon) return;
+
+    icon.classList.toggle("fa-heart");
+    icon.classList.toggle("liked");
+    icon.classList.toggle("fa-heart-o");
+  }
+
+  private updateTextNumberOfLikes(postHTML: HTMLElement) {
+    const postLikes = postHTML.querySelector(".post-likes");
+    const span = postLikes?.querySelector("span");
+
+    if (!span) return;
+
     if (this._isLiked) {
-      this._numberOfLikes += 1;
-    } else {
-      // Descrementa o número de likes
       this._numberOfLikes -= 1;
+    } else {
+      this._numberOfLikes += 1;
     }
 
-    const postContainer = document.getElementById(this._id);
-    const btnLike = postContainer?.querySelector("#btn-like");
-
-    if (!btnLike) return;
-
-    btnLike.innerHTML = String(this._isLiked);
-    // console.log(btnLike);
+    span.textContent = this._numberOfLikes.toString();
   }
 
   toHTML() {
@@ -68,26 +85,36 @@ class Post {
     const postIcons = `
       <div class="post-icons">
         <div>
-          <div id="btn-like">
+          <div id="btn-like" class="btn">
             <i class="fa fa-heart-o"></i>
           </div>
 
-          <div>
+          <div class="btn">
             <i class="fa fa-comment-o"></i>
           </div>
 
-          <div>
+          <div class="btn">
             <i class="fa fa-paper-plane-o"></i>
           </div>
         </div>
 
-        <i class="fa fa-bookmark-o"></i>
+        <div class="btn">
+          <i class="fa fa-bookmark-o"></i>
+        </div>
+      </div>
+    `;
+
+    const postLikes = `
+      <div class="post-likes">
+        <i class="fa fa-heart"></i>
+        <div><span>${this._numberOfLikes}</span> likes</div>
       </div>
     `;
 
     postContainer.innerHTML = postHeader;
     postContainer.innerHTML += postImage;
     postContainer.innerHTML += postIcons;
+    postContainer.innerHTML += postLikes;
 
     const btnLike = postContainer.querySelector("#btn-like");
     btnLike?.addEventListener("click", () => this.like());
@@ -95,8 +122,6 @@ class Post {
     document.body.appendChild(postContainer);
   }
 }
-
-const posts: Post[] = [];
 
 for (let index = 0; index < 15; index++) {
   const userName = faker.person.firstName();
