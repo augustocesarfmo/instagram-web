@@ -119,7 +119,14 @@ class Post {
     const btnLike = postContainer.querySelector("#btn-like");
     btnLike?.addEventListener("click", () => this.like());
 
-    document.body.appendChild(postContainer);
+    const ulPostsHTML = document.querySelector("ul");
+
+    if (!ulPostsHTML) return;
+
+    const liHTML = document.createElement("li");
+    liHTML.appendChild(postContainer);
+
+    ulPostsHTML.appendChild(liHTML);
   }
 }
 

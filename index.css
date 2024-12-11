@@ -2,17 +2,38 @@
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
+  list-style: none;
 }
 
 body {
   font-family: "Roboto", sans-serif;
 }
 
+main {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ul li {
+  margin-bottom: 15px;
+  /* Adiciona espaçamento abaixo de cada item */
+}
+
+ul li:last-child {
+  margin-bottom: 0;
+  /* Remove a margem do último item */
+}
+
 .post-container {
   /* border: 1px solid black; */
   width: 400px;
   height: 500px;
-  margin: 20px;
   padding: 20px;
 
   display: flex;
