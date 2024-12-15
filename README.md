@@ -21,7 +21,7 @@ Este projeto foi desenvolvido para portfólio com as seguintes tecnologias:
 
 ## ℹ️ Executando
 
-Para clonar e executar este projeto, você precisará de [Git](https://git-scm.com), [Node.js v12.13](https://nodejs.org/) ou superior instalado no seu computador.
+Para clonar e executar este projeto, você precisará do [Git](https://git-scm.com) e do [Node.js v20](https://nodejs.org/) ou superior instalado no seu computador.
 
 Na sua linha de comando execute:
 
