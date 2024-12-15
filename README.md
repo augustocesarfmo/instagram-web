@@ -1,6 +1,6 @@
 # Clone instagram web
 
-Este projeto é um clone básico da rede social Instagram, desenvolvido com Vite e TypeScript, para aprimorar as habilidades de Programação Orientada a Objetos (POO) e HTML DOM.
+Este projeto é um clone básico da versão web da rede social Instagram, desenvolvido com Vite e TypeScript, para aprimorar as habilidades de Programação Orientada a Objetos (POO) e HTML DOM.
 
 ## 👀 Demo
 
